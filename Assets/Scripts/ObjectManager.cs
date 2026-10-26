@@ -11,39 +11,15 @@ public class ObjectManager : MonoBehaviour
     
     private int remainObj;
 
-    private readonly List<GameObject> objs = new List<GameObject>();
+    private readonly List<GameObject> objs = new();
 
     void Awake()
     {
         Instance = this;
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    /*
-    void Awake()
-    {
-        Instance = this;
-
-        if (objPrefab == null)
-        {
-            Debug.LogError("No prefab was assigned to ObjectManager!");
-            return;
-        }
-
-        for (int i = 0; i < objCount; i++)
-        {
-            GameObject obj = Instantiate(objPrefab, transform);
-            obj.SetActive(false);
-            objs.Add(obj);
-        }
-
-        remainObj = objCount;
-    }
-    */
 
     public void InitializePool(int numberOfBall)
     {
-        // Xóa pool cũ nếu bắt đầu lại trong cùng scene
         foreach (GameObject obj in objs)
         {
             if (obj != null)
@@ -72,8 +48,6 @@ public class ObjectManager : MonoBehaviour
                 return obj;
             }
         }
-
-        Debug.LogWarning("ObjectManager đã hết Ball!");
         return null;
     }
 
@@ -99,6 +73,5 @@ public class ObjectManager : MonoBehaviour
             return;
 
         remainObj--;
-        //Debug.Log("Remaining Object: " + remainObj);
     }
 }

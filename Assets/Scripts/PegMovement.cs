@@ -1,35 +1,30 @@
 using System.Collections;
 using UnityEngine;
 
-public class PegMovement : MonoBehaviour
+public class PegMovement : Peg
 {
     public float speed = 2f;
     public bool moveRight = true;
 
     private SpriteRenderer spriteRenderer;
-    private GameManager gameManager;
 
-    void Start()
+    protected override void Start()
     {
-        gameManager = GameManager.Instance;
+        base.Start();
         spriteRenderer = GetComponent<SpriteRenderer>();
         StartCoroutine(ChangeColorRoutine());
     }
 
-    void Update()
+    public override void Act()
     {
-        if (gameManager.GameActive) {
-            float direction = moveRight ? 1f : -1f;
-            transform.Translate(Vector2.right * direction * speed * Time.deltaTime);
-        }        
+        float direction = moveRight ? 1f : -1f;
+        transform.Translate(Vector2.right * direction * speed * Time.deltaTime);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
-        {
             moveRight = !moveRight;
-        }
     }
 
     IEnumerator ChangeColorRoutine()
